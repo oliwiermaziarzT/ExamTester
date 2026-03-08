@@ -135,7 +135,7 @@ Kolejność losowa:
 - **Generowanie testów po przez AI** — możliwość wygenerowania testu na podstawie podanego tematu/zakresu materiału/pliku z pytaniami
 - **Zapisywanie postępów w chmurze** — synchronizacja wyników i testów między urządzeniami (np. Google Drive, Dropbox)
 - **API AI** - usunięcie lokalnego AI
-
+- **Speech recognition** - ćwiczenie poprawnej wymowy ( to specyficzna funkcjonalność dla mnie do jęyzka hiszpańskiego )
 -- **Aplikacja mobilna** — uproszczona wersja aplikacji na Androida/iOS do nauki w ruchu (w bardzo bardzo odległej przyszłości "😉")
 
 ## Licencja
