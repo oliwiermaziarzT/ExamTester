@@ -6,7 +6,7 @@ Desktopowa aplikacja do nauki i przygotowania do egzaminów. Umożliwia tworzeni
 
 ---
 
-## ✨ Funkcje
+## Funkcje
 
 - **Zarządzanie testami** — tworzenie testów, przypisywanie plików `.json` z pytaniami, usuwanie
 - **Dwa typy pytań** — zamknięte (A/B/C/D) z losową kolejnością odpowiedzi oraz otwarte (wpisywanie tekstu)
@@ -19,7 +19,7 @@ Desktopowa aplikacja do nauki i przygotowania do egzaminów. Umożliwia tworzeni
 
 ---
 
-## 🚀 Instalacja
+## Instalacja
 
 ### Wymagania
 
@@ -30,8 +30,8 @@ Desktopowa aplikacja do nauki i przygotowania do egzaminów. Umożliwia tworzeni
 
 1. Sklonuj repozytorium:
 ```bash
-git clone https://github.com/twoja_nazwa/nazwa_repo.git
-cd nazwa_repo
+git clone https://github.com/oliwiermaziarzT/ExamTester.git
+cd ExamTester
 ```
 
 2. Utwórz i aktywuj wirtualne środowisko:
@@ -61,17 +61,18 @@ ollama pull llama3:latest
 
 ---
 
-## 📖 Pierwsze kroki
+## Pierwsze kroki
 
 1. **Dodaj test** — kliknij „Dodaj test" i podaj nazwę. Zostanie utworzony plik `.json` z przykładowymi pytaniami.
-2. **Przypisz plik** — kliknij przycisk 📁 przy teście i wskaż plik `.json` z pytaniami.
+1.1 **Przypisanie pliku** - po utworzeniu testu automatycznie przypisywany jest do niego plik `.json` z taką samą nazwą jak test.
+2. **Przypisz plik** — jeżeli masz gotowy plik `.json` z pytaniami, kliknij przycisk 📁 przy teście i wskaż ten plik.
 3. **Rozpocznij naukę** — kliknij wybrany test, a następnie „Rozpocznij Test".
 4. **Odpowiadaj** — wybierz odpowiedź A/B/C/D lub wpisz tekst w pytaniach otwartych.
 5. **Śledź postępy** — statystyki na dole ekranu pokazują wynik bieżącej sesji i ogólny postęp nauki.
 
 ---
 
-## 🧠 Pomoc AI
+## Pomoc AI
 
 Po udzieleniu odpowiedzi pojawia się panel **Pomocnik AI**. Dostępne opcje:
 
@@ -83,7 +84,7 @@ Funkcja wymaga uruchomionego serwisu Ollama z pobranym modelem.
 
 ---
 
-## 🛠️ Technologie
+## Technologie
 
 | Biblioteka | Zastosowanie |
 |---|---|
@@ -94,11 +95,11 @@ Funkcja wymaga uruchomionego serwisu Ollama z pobranym modelem.
 
 ---
 
-## 📁 Struktura projektu
+## Struktura projektu
 
 ```
 ├── main.py           # Punkt wejścia, główna klasa App
-├── gui.py            # Łącznik interfejsów (dziedziczenie)
+├── gui.py            # Łącznik interfejsów 
 ├── gui_menu.py       # Widok menu głównego
 ├── gui_quiz.py       # Widok rozwiązywania testu + panel AI
 ├── gui_edit.py       # Widok edytora pytań
@@ -117,6 +118,19 @@ Funkcja wymaga uruchomionego serwisu Ollama z pobranym modelem.
 
 Stworzone przez **Oliwier Maziarz** jako narzędzie do samodzielnej nauki.
 
-## 📄 Licencja
+## Dlaczego ten projekt?
+
+Projekt został stworzony, ponieważ na studiach było bardzo wiele przedmiotów z gotową bazą pytań, ale brakowało narzędzia do efektywnej nauki. Chciałem mieć możliwość tworzenia własnych testów, śledzenia postępów i korzystania z pomocy AI, a dostępne rozwiązania były zbyt ograniczone lub skomplikowane. Ten projekt to moja odpowiedź na te potrzeby. Obecnie służy mi głównie do nauki języka hiszpańskiego.
+
+## Dalsze plany rozwoju
+Kolejność losowa:
+
+- **Tryb tylko nienauczone** — możliwość rozwiązywania tylko pytań z niskim licznikiem
+- **Tryb powtórka błędów** — rozwiązywanie tylko pytań z ostatniej sesji, które zostały źle odpowiedziane
+- **Eksport wyników** — możliwość eksportowania statystyk do pliku CSV/PDF
+- **Więcej typów pytań** — np. pytania z wieloma poprawnymi odpowiedziami, pytania z obrazkami
+- **Wykres postępów w czasie** — linie pokazujące jak procent poprawnych odpowiedzi zmienia się w kolejnych sesjach
+
+## Licencja
 
 Projekt udostępniony na licencji [MIT](LICENSE). Możesz go używać, modyfikować i rozpowszechniać dowolnie.
