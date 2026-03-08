@@ -1,6 +1,6 @@
 # Exam Tester
 
-<video src="videos/vid2.mp4" controls width="600"></video>
+<img src="videos/vid2.gif" width="600"/>
 
 Desktopowa aplikacja do nauki i przygotowania do egzaminów. Umożliwia tworzenie własnych testów, rozwiązywanie pytań zamkniętych i otwartych, śledzenie postępów nauki oraz korzystanie z lokalnego modelu AI do wyjaśniania odpowiedzi. Napisana w Pythonie z interfejsem graficznym CustomTkinter.
 
@@ -60,6 +60,8 @@ ollama pull llama3:latest
 ```
 
 ---
+
+<img src="videos/vid1.gif" width="600"/>
 
 ## Pierwsze kroki
 
