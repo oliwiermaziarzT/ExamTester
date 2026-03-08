@@ -25,29 +25,37 @@ class MenuLogic:
     def button_add_test_event(self):
         name = ctk.CTkInputDialog(text="Wpisz nazwę testu: ", title="Nowy test").get_input()
         if name:
-            self.create_tests(name, None)
+            folder_path = "database"
+            if not os.path.exists(folder_path):
+                os.makedirs(folder_path)
+            file_path = os.path.join(folder_path, f"{name}.json")
 
-        data = [
-            {
-                "licznik": 0,
+            self.create_tests(name, file_path)
+
+            data = [
+                {
+                    "licznik": 0,
                     "opcje": {
                         "A": "1",
                         "B": "2",
                         "C": "3",
                         "D": "4"
-                     },
-                "poprawna": "D",
-                "pytanie": "2+2="
-            },
-            {
-                "pytanie": "Czy jesteś dobrym człowiekiem? (Tak/Nie)",
-                "poprawna": "Tak",
-                "licznik": 0,
-                "typ": "otwarte"
-            },
-        ]
-        with open(f"{name}.json", "w", encoding="utf-8") as file:
-            json.dump(data, file, indent=4, ensure_ascii=False)
+                    },
+                    "poprawna": "D",
+                    "pytanie": "2+2="
+                },
+                {
+                    "pytanie": "Czy jesteś dobrym człowiekiem? (Tak/Nie)",
+                    "poprawna": "Tak",
+                    "licznik": 0,
+                    "typ": "otwarte"
+                },
+            ]
+
+
+            with open(file_path, "w", encoding="utf-8") as file:
+                json.dump(data, file, indent=4, ensure_ascii=False)
+            save_config(name, file_path)
 
     def create_tests(self, name, path):
         row_frame = ctk.CTkFrame(self.new_tests_frame, fg_color="transparent")
@@ -97,7 +105,7 @@ class MenuLogic:
 
         edit_button = ctk.CTkButton(
             row_frame,
-            text="EDYTUJ",
+            text="MENU",
             font=("Arial", 18, "bold"),
             width=100,
             height=60,

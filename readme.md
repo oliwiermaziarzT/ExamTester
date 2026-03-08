@@ -1,8 +1,7 @@
-System do Nauki Egzaminacyjnej
-Aplikacja desktopowa wspomagająca przygotowania do egzaminów – umożliwia tworzenie własnych testów, rozwiązywanie pytań zamkniętych i otwartych, śledzenie postępów oraz korzystanie z pomocy sztucznej inteligencji (AI) do wyjaśniania odpowiedzi. Napisana w Pythonie z wykorzystaniem nowoczesnego interfejsu graficznego CustomTkinter.
+Aplikacja do nauki
+Aplikacja desktopowa wspomagająca przygotowania do egzaminów – umożliwia tworzenie własnych testów, rozwiązywanie pytań zamkniętych i otwartych, śledzenie postępów oraz korzystanie z pomocy sztucznej inteligencji (AI) do wyjaśniania odpowiedzi. Napisana w Pythonie z wykorzystaniem interfejsu graficznego CustomTkinter.
 
-https://screenshots/main_menu.png
-Przykładowy zrzut ekranu – menu główne z listą testów
+<video src="videos/vid2.mp4" controls width="600"></video>
 
 ✨ Funkcje
 ✅ Tworzenie i zarządzanie testami – dodawanie własnych testów, przypisywanie plików .json z pytaniami.
@@ -21,23 +20,7 @@ Przykładowy zrzut ekranu – menu główne z listą testów
 
 ✅ Ciemny motyw – przyjazny dla oczu interfejs z możliwością personalizacji kolorów.
 
-🖼️ Dodawanie zrzutów ekranu i filmów
-Aby dodać zdjęcia do tego pliku README.md:
-
-Utwórz w repozytorium folder screenshots/.
-
-Wgraj do niego pliki graficzne (np. main_menu.png, quiz_view.png, editor.png).
-
-W tekście odwołaj się do nich ścieżką względną:
-![Opis](screenshots/nazwa_pliku.png)
-
-Aby dodać film (np. nagranie ekranu):
-
-Umieść plik wideo w repozytorium (np. demo.mp4) i użyj znacznika HTML <video>:
-
-html
-<video src="demo.mp4" controls width="600"></video>
-Możesz też opublikować film na YouTube i osadzić go jako link lub użyć kodu osadzania.
+<video src="videos/vid1.mp4" controls width="600"></video>
 
 🚀 Instalacja i uruchomienie
 Wymagania

@@ -42,7 +42,8 @@ class QuizLogic:
             else:
                 self.ui_manager.show_closed_question(self)
                 for btn in self.buttons.values():
-                    btn.configure(state="normal", fg_color=["#3B8ED0", "#1F6AA5"])
+                    btn.configure(state="normal", fg_color=["#3B8ED0", "#1F6AA5"],
+                                  text_color=["#DCE4EE", "white"])
                 for litera in ["A", "B", "C", "D"]:
                     o_tekst = pytanie['opcje'].get(litera, "")
                     self.buttons[litera].configure(text=f"{litera}: {o_tekst}")

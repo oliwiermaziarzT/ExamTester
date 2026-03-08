@@ -30,16 +30,18 @@ def zbuduj_prompt_quiz(pytanie, opcje, poprawna, twoja, typ):
             f"Opcje odpowiedzi:\n{opcje_text}\n\n"
             f"Poprawna odpowiedź: {poprawna}\n"
             f"Moja odpowiedź: {twoja}\n\n"
-            f"""Jesteś ekspertem w języku hiszpańskim, idealnie znasz gramatykę oraz slang i to co się powszechnie używa w języku - 
-            Wyjaśnij krótko i cała odpowiedź musi być po polsku dlaczego odpowiedź '{poprawna}' jest prawidłowa."""
+            f"""Jesteś ekspertem w języku hiszpańskim, idealnie znasz gramatykę oraz slang i to co się powszechnie używa. 
+            Wyjaśnij krótko w nie więcej niż 50 słów oraz w bardzo prosty sposób jak do amatora, który dopiero się uczy nowego języka. 
+            Twoja odpowiedź powinna być po polsku dlaczego odpowiedź '{poprawna}' jest prawidłowa."""
         )
     else:
         return (
             f"Pytanie egzaminacyjne:\n{pytanie}\n\n"
             f"Poprawna odpowiedź: {poprawna}\n"
             f"Moja odpowiedź: {twoja}\n\n"
-            f"""Jesteś ekspertem w języku hiszpańskim, idealnie znasz gramatykę oraz slang i to co się powszechnie używa w języku - 
-            Wyjaśnij krótko i cała odpowiedź musi być po polsku dlaczego to jest poprawna odpowiedź."""
+            f"""Jesteś ekspertem w języku hiszpańskim, idealnie znasz gramatykę oraz slang i to co się powszechnie używa. 
+            Wyjaśnij krótko w nie więcej niż 50 słów oraz w bardzo prosty sposób jak do amatora, który dopiero się uczy nowego języka. T
+            woja odpowiedź powinna być po polsku dlaczego to jest poprawna odpowiedź."""
         )
 
 
