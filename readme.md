@@ -64,7 +64,7 @@ ollama pull llama3:latest
 ## Pierwsze kroki
 
 1. **Dodaj test** — kliknij „Dodaj test" i podaj nazwę. Zostanie utworzony plik `.json` z przykładowymi pytaniami.
-2. **Automatyczne przypisanie pliku** - po utworzeniu testu automatycznie przypisywany jest do niego plik `.json` z taką samą nazwą jak test.
+2. **Automatyczne przypisanie pliku** — po utworzeniu testu automatycznie przypisywany jest do niego plik `.json` z taką samą nazwą jak test.
 3. **Przypisz plik** — jeżeli masz gotowy plik `.json` z pytaniami, kliknij przycisk 📁 przy teście i wskaż ten plik.
 4. **Rozpocznij naukę** — kliknij wybrany test, a następnie „Rozpocznij Test".
 5. **Odpowiadaj** — wybierz odpowiedź A/B/C/D lub wpisz tekst w pytaniach otwartych.
@@ -120,7 +120,7 @@ Stworzone przez **Oliwier Maziarz** jako narzędzie do samodzielnej nauki.
 
 ## Dlaczego ten projekt?
 
-Projekt został stworzony, ponieważ na studiach było bardzo wiele przedmiotów z gotową bazą pytań, ale brakowało narzędzia do efektywnej nauki. Chciałem mieć możliwość tworzenia własnych testów, śledzenia postępów i korzystania z pomocy AI, a dostępne rozwiązania były zbyt ograniczone lub skomplikowane. Ten projekt to moja odpowiedź na te potrzeby. Obecnie służy mi głównie do nauki języka hiszpańskiego.
+Projekt został stworzony, ponieważ na studiach było bardzo wiele przedmiotów z gotową bazą pytań, ale brakowało narzędzia do efektywnej nauki - popularna aplikacja Anki mi nie odpowiadała. Chciałem mieć możliwość tworzenia własnych testów, śledzenia postępów i korzystania z pomocy AI, a dostępne rozwiązania były zbyt ograniczone lub skomplikowane. Chciałem stworzyć coś co jest bardzo proste w obsłudze oraz przyjemne dla oka. Ten projekt to moja odpowiedź na te potrzeby. Obecnie służy mi głównie do nauki języka hiszpańskiego.
 
 ## Dalsze plany rozwoju
 Kolejność losowa:
@@ -128,8 +128,13 @@ Kolejność losowa:
 - **Tryb tylko nienauczone** — możliwość rozwiązywania tylko pytań z niskim licznikiem
 - **Tryb powtórka błędów** — rozwiązywanie tylko pytań z ostatniej sesji, które zostały źle odpowiedziane
 - **Eksport wyników** — możliwość eksportowania statystyk do pliku CSV/PDF
-- **Więcej typów pytań** — np. pytania z wieloma poprawnymi odpowiedziami, pytania z obrazkami
+- **Więcej typów pytań** —  pytania z wieloma poprawnymi odpowiedziami, pytania z obrazkami
 - **Wykres postępów w czasie** — linie pokazujące jak procent poprawnych odpowiedzi zmienia się w kolejnych sesjach
+- **Generowanie testów po przez AI** — możliwość wygenerowania testu na podstawie podanego tematu/zakresu materiału/pliku z pytaniami
+- **Zapisywanie postępów w chmurze** — synchronizacja wyników i testów między urządzeniami (np. Google Drive, Dropbox)
+
+
+-- **Aplikacja mobilna** — uproszczona wersja aplikacji na Androida/iOS do nauki w ruchu (w bardzo bardzo odległej przyszłości "😉")
 
 ## Licencja
 
