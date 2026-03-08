@@ -1,115 +1,122 @@
-Aplikacja do nauki
-Aplikacja desktopowa wspomagająca przygotowania do egzaminów – umożliwia tworzenie własnych testów, rozwiązywanie pytań zamkniętych i otwartych, śledzenie postępów oraz korzystanie z pomocy sztucznej inteligencji (AI) do wyjaśniania odpowiedzi. Napisana w Pythonie z wykorzystaniem interfejsu graficznego CustomTkinter.
+# Exam Tester
 
 <video src="videos/vid2.mp4" controls width="600"></video>
 
-✨ Funkcje
-✅ Tworzenie i zarządzanie testami – dodawanie własnych testów, przypisywanie plików .json z pytaniami.
+Desktopowa aplikacja do nauki i przygotowania do egzaminów. Umożliwia tworzenie własnych testów, rozwiązywanie pytań zamkniętych i otwartych, śledzenie postępów nauki oraz korzystanie z lokalnego modelu AI do wyjaśniania odpowiedzi. Napisana w Pythonie z interfejsem graficznym CustomTkinter.
 
-✅ Dwa typy pytań – zamknięte (A, B, C, D) oraz otwarte (wpisywanie odpowiedzi).
+---
 
-✅ Edytor pytań – dodawanie, modyfikacja i usuwanie pytań z poziomu aplikacji.
+## ✨ Funkcje
 
-✅ Statystyki w czasie rzeczywistym – liczba poprawnych/niepoprawnych odpowiedzi, postęp nauki (licznik), wykresy kołowe.
+- **Zarządzanie testami** — tworzenie testów, przypisywanie plików `.json` z pytaniami, usuwanie
+- **Dwa typy pytań** — zamknięte (A/B/C/D) z losową kolejnością odpowiedzi oraz otwarte (wpisywanie tekstu)
+- **Edytor pytań** — dodawanie, edytowanie i usuwanie pytań bezpośrednio z poziomu aplikacji
+- **Statystyki w czasie rzeczywistym** — poprawne/niepoprawne odpowiedzi, procent, wykresy kołowe postępu nauki
+- **System powtórek** — pytania słabiej opanowane (niski licznik) pojawiają się częściej
+- **Przegląd błędów** — lista pytań z błędnymi odpowiedziami z ostatniej sesji wraz z poprawnymi odpowiedziami
+- **Integracja z AI (Ollama)** — wyjaśnienia odpowiedzi i możliwość zadania własnego pytania po każdej odpowiedzi
+- **Ciemny motyw** — przyjazny dla oczu interfejs
 
-✅ System powtórek – pytania z niskim licznikiem są wyświetlane częściej, co wspomaga zapamiętywanie.
+---
 
-✅ Przegląd błędów – lista pytań, na które udzielono złej odpowiedzi w ostatniej sesji.
+## 🚀 Instalacja
 
-✅ Integracja z AI (Ollama) – po każdej odpowiedzi możesz poprosić o wyjaśnienie, dlaczego dana odpowiedź jest prawidłowa, lub zadać własne pytanie dotyczące bieżącego zagadnienia.
+### Wymagania
 
-✅ Ciemny motyw – przyjazny dla oczu interfejs z możliwością personalizacji kolorów.
+- Python 3.8+
+- [Ollama](https://ollama.com) z pobranym modelem (opcjonalne, tylko do funkcji AI)
 
-<video src="videos/vid1.mp4" controls width="600"></video>
+### Kroki
 
-🚀 Instalacja i uruchomienie
-Wymagania
-Python 3.8 lub nowszy
-
-Ollama (jeśli chcesz korzystać z pomocy AI) z pobranym modelem, np. llama3
-
-Kroki
-Sklonuj repozytorium:
-
-bash
+1. Sklonuj repozytorium:
+```bash
 git clone https://github.com/twoja_nazwa/nazwa_repo.git
 cd nazwa_repo
-(Zalecane) Utwórz i aktywuj wirtualne środowisko:
+```
 
-bash
+2. Utwórz i aktywuj wirtualne środowisko:
+```bash
 python -m venv venv
-source venv/bin/activate  # Linux/Mac
-venv\Scripts\activate     # Windows
-Zainstaluj wymagane pakiety:
+source venv/bin/activate   # Linux/Mac
+venv\Scripts\activate      # Windows
+```
 
-bash
+3. Zainstaluj zależności:
+```bash
 pip install customtkinter matplotlib ollama
-Uwaga: customtkinter i matplotlib to główne biblioteki GUI i wykresów, ollama to klient do komunikacji z lokalnym modelem AI.
+```
 
-Upewnij się, że Ollama działa (jeśli chcesz używać AI):
-
-bash
-ollama serve
-a następnie pobierz model:
-
-bash
-ollama pull llama3:latest
-Uruchom aplikację:
-
-bash
+4. Uruchom aplikację:
+```bash
 python main.py
-📖 Pierwsze kroki
-Dodaj test – kliknij przycisk „Dodaj test”, podaj nazwę. Zostanie utworzony plik .json z przykładowymi pytaniami.
+```
 
-Przypisz plik – przy każdym teście kliknij ikonę 📁 i wskaż plik .json (możesz go później edytować ręcznie lub przez wbudowany edytor).
+### Konfiguracja AI (opcjonalne)
 
-Rozpocznij naukę – wybierz test z listy i kliknij „Rozpocznij Test”.
+Jeśli chcesz korzystać z pomocy AI, uruchom Ollama i pobierz model:
+```bash
+ollama serve
+ollama pull llama3:latest
+```
 
-Odpowiadaj na pytania – wybieraj odpowiedzi w pytaniach zamkniętych lub wpisz tekst w otwartych. Po każdej odpowiedzi zobaczysz poprawną wersję oraz możesz poprosić AI o wyjaśnienie.
+---
 
-Edytuj pytania – w menu testu kliknij „Zmień lub usuń pytanie”, aby przeglądać, modyfikować lub usuwać pytania.
+## 📖 Pierwsze kroki
 
-Śledź postępy – na dole ekranu znajdują się statystyki: poprawne/niepoprawne, procent, liczba pytań nauczonych (licznik > 2) i nienauczonych.
+1. **Dodaj test** — kliknij „Dodaj test" i podaj nazwę. Zostanie utworzony plik `.json` z przykładowymi pytaniami.
+2. **Przypisz plik** — kliknij przycisk 📁 przy teście i wskaż plik `.json` z pytaniami.
+3. **Rozpocznij naukę** — kliknij wybrany test, a następnie „Rozpocznij Test".
+4. **Odpowiadaj** — wybierz odpowiedź A/B/C/D lub wpisz tekst w pytaniach otwartych.
+5. **Śledź postępy** — statystyki na dole ekranu pokazują wynik bieżącej sesji i ogólny postęp nauki.
 
-🧠 Pomoc AI
-Po udzieleniu odpowiedzi na pytanie pojawi się panel „Pomocnik AI”. Możesz:
+---
 
-Kliknąć „Wyjaśnij odpowiedź” – AI wygeneruje krótkie uzasadnienie, dlaczego poprawna odpowiedź jest właściwa.
+## 🧠 Pomoc AI
 
-Wpisać własne pytanie w polu tekstowym i kliknąć „Wyślij pytanie” – otrzymasz odpowiedź na pytanie dotyczące bieżącego zagadnienia.
+Po udzieleniu odpowiedzi pojawia się panel **Pomocnik AI**. Dostępne opcje:
 
-Kliknąć „Wyczyść”, by usunąć odpowiedź AI.
+- **Wyjaśnij odpowiedź** — AI generuje krótkie uzasadnienie dlaczego dana odpowiedź jest prawidłowa
+- **Wyślij pytanie** — zadaj własne pytanie dotyczące bieżącego zagadnienia
+- **Wyczyść** — usuwa odpowiedź AI z panelu
 
-Wymaga to uruchomionego serwisu Ollama z modelem.
+Funkcja wymaga uruchomionego serwisu Ollama z pobranym modelem.
 
-🛠️ Technologie
-Python – język programowania
+---
 
-CustomTkinter – nowoczesny framework GUI
+## 🛠️ Technologie
 
-Matplotlib – wykresy statystyk
+| Biblioteka | Zastosowanie |
+|---|---|
+| [CustomTkinter](https://github.com/TomSchimansky/CustomTkinter) | Interfejs graficzny |
+| [Matplotlib](https://matplotlib.org) | Wykresy statystyk |
+| [Ollama](https://ollama.com) | Lokalny model językowy AI |
+| JSON | Format przechowywania pytań i konfiguracji |
 
-JSON – format przechowywania pytań
+---
 
-Ollama – lokalna integracja z modelami językowymi
+## 📁 Struktura projektu
 
-📁 Struktura projektu
-text
-├── main.py                # Punkt wejścia, główna klasa App
-├── gui.py                 # Połączenie interfejsów
-├── gui_menu.py            # Widoki menu
-├── gui_quiz.py            # Widoki rozwiązywania testu
-├── gui_edit.py            # Widoki edytora pytań
-├── quiz_logic.py          # Logika rozwiązywania testu
-├── edit_logic.py          # Logika edycji pytań
-├── menu_logic.py          # Logika zarządzania testami
-├── database.py            # Operacje na plikach JSON
-├── ollama_helper.py       # Komunikacja z Ollama
-├── config.json            # Lista zapisanych testów
-└── baza.json              # Przykładowa baza pytań
-👤 Autor
-Stworzone przez Oliwier Maziarz.
-Aplikacja powstała jako narzędzie do samodzielnej nauki i może być dowolnie rozwijana.
+```
+├── main.py           # Punkt wejścia, główna klasa App
+├── gui.py            # Łącznik interfejsów (dziedziczenie)
+├── gui_menu.py       # Widok menu głównego
+├── gui_quiz.py       # Widok rozwiązywania testu + panel AI
+├── gui_edit.py       # Widok edytora pytań
+├── quiz_logic.py     # Logika rozwiązywania testu
+├── edit_logic.py     # Logika edycji pytań
+├── menu_logic.py     # Logika zarządzania testami
+├── database.py       # Operacje na plikach JSON
+├── ollama_helper.py  # Komunikacja z Ollama
+├── config.json       # Lista zapisanych testów
+└── baza.json         # Przykładowa baza pytań
+```
 
-📄 Licencja
-Projekt udostępniony na licencji MIT. Możesz go używać, modyfikować i rozpowszechniać zgodnie z jej warunkami.
+---
+
+## 👤 Autor
+
+Stworzone przez **Oliwier Maziarz** jako narzędzie do samodzielnej nauki.
+
+## 📄 Licencja
+
+Projekt udostępniony na licencji [MIT](LICENSE). Możesz go używać, modyfikować i rozpowszechniać dowolnie.
