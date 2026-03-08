@@ -64,11 +64,11 @@ ollama pull llama3:latest
 ## Pierwsze kroki
 
 1. **Dodaj test** — kliknij „Dodaj test" i podaj nazwę. Zostanie utworzony plik `.json` z przykładowymi pytaniami.
-1.1. **Automatyczne przypisanie pliku** - po utworzeniu testu automatycznie przypisywany jest do niego plik `.json` z taką samą nazwą jak test.
-2. **Przypisz plik** — jeżeli masz gotowy plik `.json` z pytaniami, kliknij przycisk 📁 przy teście i wskaż ten plik.
-3. **Rozpocznij naukę** — kliknij wybrany test, a następnie „Rozpocznij Test".
-4. **Odpowiadaj** — wybierz odpowiedź A/B/C/D lub wpisz tekst w pytaniach otwartych.
-5. **Śledź postępy** — statystyki na dole ekranu pokazują wynik bieżącej sesji i ogólny postęp nauki.
+2. **Automatyczne przypisanie pliku** - po utworzeniu testu automatycznie przypisywany jest do niego plik `.json` z taką samą nazwą jak test.
+3. **Przypisz plik** — jeżeli masz gotowy plik `.json` z pytaniami, kliknij przycisk 📁 przy teście i wskaż ten plik.
+4. **Rozpocznij naukę** — kliknij wybrany test, a następnie „Rozpocznij Test".
+5. **Odpowiadaj** — wybierz odpowiedź A/B/C/D lub wpisz tekst w pytaniach otwartych.
+6. **Śledź postępy** — statystyki na dole ekranu pokazują wynik bieżącej sesji i ogólny postęp nauki.
 
 ---
 
