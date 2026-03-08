@@ -134,7 +134,7 @@ Kolejność losowa:
 - **Wykres postępów w czasie** — linie pokazujące jak procent poprawnych odpowiedzi zmienia się w kolejnych sesjach
 - **Generowanie testów po przez AI** — możliwość wygenerowania testu na podstawie podanego tematu/zakresu materiału/pliku z pytaniami
 - **Zapisywanie postępów w chmurze** — synchronizacja wyników i testów między urządzeniami (np. Google Drive, Dropbox)
-
+- **API AI** - usunięcie lokalnego AI
 
 -- **Aplikacja mobilna** — uproszczona wersja aplikacji na Androida/iOS do nauki w ruchu (w bardzo bardzo odległej przyszłości "😉")
 
