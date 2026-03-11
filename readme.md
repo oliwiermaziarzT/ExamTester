@@ -76,6 +76,7 @@ python main.py
 
 ## Generator testów przez AI ✦ 
 Wszystko związane z tą funkcją zostało stworzone w 100% przez sztuczną inteligencję - ta funckja powstała, ponieważ ułatwia mi to naukę, a na mój obecny poziom to zadanie wydawało się zbyt cieżkie żeby samemu ją napisać.
+______________________________________________________________________________________________________________________
 
 Kliknij **„Dodaj test przez AI ✦"** w menu głównym, aby automatycznie wygenerować test zamknięty (A/B/C/D).
 
