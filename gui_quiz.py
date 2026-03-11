@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from ollama_helper import zapytaj_ollame, zbuduj_prompt_quiz, zbuduj_prompt_blad
+from ai_helper import zapytaj_ollame, zbuduj_prompt_quiz, zbuduj_prompt_blad
 BG_MAIN = "#1a1a2e"
 BG_FRAME = "#16213e"
 BG_CARD = "#0f3460"
@@ -27,8 +27,13 @@ class QuizUIQuiz:
         # wyswietlanie pytania
         master.pytanie = ctk.CTkLabel(master, text="", font=("Arial", 18, "bold"), wraplength=1000, text_color=TEXT)
         master.pytanie.pack(pady=10)
-        # ramka na przyciski
-        master.buttons_frame = ctk.CTkFrame(master, fg_color="transparent")
+
+        # centralny kontener — trzyma odpowiedzi + panel AI w stałej kolejności
+        master.center_frame = ctk.CTkFrame(master, fg_color="transparent")
+        master.center_frame.pack(side="top", fill="x", padx=60)
+
+        # ramka na przyciski — teraz wewnątrz center_frame
+        master.buttons_frame = ctk.CTkFrame(master.center_frame, fg_color="transparent")
         # przyciski
         master.buttons = {}
         for litera in ["A", "B", "C", "D"]:
@@ -45,8 +50,8 @@ class QuizUIQuiz:
                                 border_color=BG_CARD)
             btn.pack(pady=6)
             master.buttons[litera] = btn
-        # frame na pytanie otwarte
-        master.open_question_frame = ctk.CTkFrame(master, fg_color="transparent")
+        # frame na pytanie otwarte — też wewnątrz center_frame
+        master.open_question_frame = ctk.CTkFrame(master.center_frame, fg_color="transparent")
         # pole na odpowiedz na pytanie otwarte
         master.answer_entry = ctk.CTkEntry(master.open_question_frame,
                                            width=400,
@@ -75,8 +80,8 @@ class QuizUIQuiz:
                                                      font=("Arial", 18, "bold"),
                                                      text_color=ACCENT_SUCCESS)
 
-        # panel AI pomocnika (ukryty domyslnie, pokazuje sie po udzieleniu odpowiedzi)
-        master.ai_frame = ctk.CTkFrame(master, fg_color=BG_FRAME, corner_radius=10,
+        # panel AI pomocnika — wewnątrz center_frame, zawsze pod odpowiedziami
+        master.ai_frame = ctk.CTkFrame(master.center_frame, fg_color=BG_FRAME, corner_radius=10,
                                        border_width=1, border_color=ACCENT_AI)
 
         # naglowek panelu AI
@@ -87,11 +92,27 @@ class QuizUIQuiz:
                                        font=("Arial", 14, "bold"), text_color=ACCENT_AI)
         master.ai_label.pack(side="left")
 
+        # przycisk minimalizowania panelu AI
+        master.ai_minimized = False
+        master.ai_toggle_btn = ctk.CTkButton(
+            master.ai_header_frame,
+            text="▼ Zwiń",
+            font=("Arial", 12),
+            fg_color="transparent",
+            hover_color=BG_CARD,
+            text_color=TEXT_DIM,
+            border_width=0,
+            height=24,
+            width=80,
+            command=lambda: self.ai_toggle_minimize(master)
+        )
+        master.ai_toggle_btn.pack(side="right")
+
         # pole na wlasny prompt uzytkownika
         master.ai_prompt_entry = ctk.CTkEntry(master.ai_frame,
                                               height=38,
                                               font=("Arial", 14),
-                                              placeholder_text="Wpisz pytanie do AI lub kliknij 'Wyjaśnij'...",
+                                              placeholder_text="Wpisz pytanie [Ctrl+Enter] • Wyjaśnij odpowiedź [Alt+Enter]",
                                               fg_color=BG_CARD,
                                               border_color=ACCENT_AI,
                                               border_width=1,
@@ -143,7 +164,7 @@ class QuizUIQuiz:
         # pole tekstowe na odpowiedz AI 
         master.ai_response_box = ctk.CTkTextbox(master.ai_frame,
                                                 height=120,
-                                                font=("Arial", 13),
+                                                font=("Arial", 18),
                                                 fg_color=BG_CARD,
                                                 text_color=TEXT,
                                                 border_width=0,
@@ -248,11 +269,11 @@ class QuizUIQuiz:
 
     def show_closed_question(self, master):
         master.open_question_frame.pack_forget()
-        master.buttons_frame.pack(pady=20)
+        master.buttons_frame.pack(pady=20, anchor="center")
 
     def show_open_question(self, master):
         master.buttons_frame.pack_forget()
-        master.open_question_frame.pack(pady=20)
+        master.open_question_frame.pack(pady=20, anchor="center")
         master.correct_answer_display.pack_forget()
         master.answer_entry.configure(state="normal")
         master.answer_entry.delete(0, "end")
@@ -260,16 +281,72 @@ class QuizUIQuiz:
         master.submit_open_btn.configure(state="normal")
         master.answer_entry.focus_set()
 
+
     def show_ai_panel(self, master):
-        master.ai_frame.pack(pady=8, padx=60, fill="x")
-        master.ai_prompt_entry.bind("<Return>", lambda e: self.ai_wyslij_wlasny_prompt(master))
-        master.ai_prompt_entry.bind("<KP_Enter>", lambda e: self.ai_wyslij_wlasny_prompt(master))
+        master.ai_explain_btn.configure(state="normal")
+        master.ai_ask_btn.configure(state="normal")
+        master.ai_prompt_entry.configure(state="normal")
+
+    def show_ai_panel_always(self, master, is_open=False):
+        self.ai_wyczysc(master)
+        master.ai_frame.pack_forget()
+        if is_open:
+            master.ai_frame.pack(pady=8, fill="x", after=master.open_question_frame)
+        else:
+            master.ai_frame.pack(pady=8, fill="x", after=master.buttons_frame)
+        master.ai_explain_btn.configure(state="normal")
+        master.ai_ask_btn.configure(state="normal")
+        master.ai_prompt_entry.configure(state="normal")
+        master.ai_prompt_entry.bind("<Control-Return>", lambda e: self.ai_wyslij_wlasny_prompt(master))
+        master.ai_prompt_entry.bind("<Control-KP_Enter>", lambda e: self.ai_wyslij_wlasny_prompt(master))
+        master.bind("<Alt-Return>", lambda e: self.ai_wyjasnij_odpowiedz(master))
+        master.bind("<Alt-KP_Enter>", lambda e: self.ai_wyjasnij_odpowiedz(master))
+
+
+        def _on_prompt_focus_in(e):
+            master.unbind("<a>")
+            master.unbind("<b>")
+            master.unbind("<c>")
+            master.unbind("<d>")
+
+        def _on_prompt_focus_out(e):
+            if not getattr(master, "question_answered", True):
+                master.bind("<a>", lambda event: master.check_answer_closed("A"))
+                master.bind("<b>", lambda event: master.check_answer_closed("B"))
+                master.bind("<c>", lambda event: master.check_answer_closed("C"))
+                master.bind("<d>", lambda event: master.check_answer_closed("D"))
+
+        master.ai_prompt_entry.bind("<FocusIn>", _on_prompt_focus_in)
+        master.ai_prompt_entry.bind("<FocusOut>", _on_prompt_focus_out)
+        if master.ai_minimized:
+            master.ai_prompt_entry.pack(fill="x", padx=14, pady=(0, 6))
+            master.ai_buttons_frame.pack(fill="x", padx=14, pady=(0, 6))
+            master.ai_response_box.pack(fill="x", padx=14, pady=(0, 12))
+            master.ai_toggle_btn.configure(text="▼ Zwiń")
+            master.ai_minimized = False
 
     def hide_ai_panel(self, master):
         master.ai_frame.pack_forget()
+        master.ai_minimized = False
+        master.ai_toggle_btn.configure(text="▼ Zwiń")
         self.ai_wyczysc(master)
 
+    def ai_toggle_minimize(self, master):
+        if not master.ai_minimized:
+            master.ai_prompt_entry.pack_forget()
+            master.ai_buttons_frame.pack_forget()
+            master.ai_response_box.pack_forget()
+            master.ai_toggle_btn.configure(text="▶ Rozwiń")
+            master.ai_minimized = True
+        else:
+            master.ai_prompt_entry.pack(fill="x", padx=14, pady=(0, 6))
+            master.ai_buttons_frame.pack(fill="x", padx=14, pady=(0, 6))
+            master.ai_response_box.pack(fill="x", padx=14, pady=(0, 12))
+            master.ai_toggle_btn.configure(text="▼ Zwiń")
+            master.ai_minimized = False
+
     def ai_wyczysc(self, master):
+        master._ai_busy = False
         master.ai_response_box.configure(state="normal")
         master.ai_response_box.delete("1.0", "end")
         master.ai_response_box.configure(state="disabled")
@@ -282,6 +359,8 @@ class QuizUIQuiz:
         master.ai_response_box.configure(state="disabled")
 
     def ai_wyjasnij_odpowiedz(self, master):
+        if getattr(master, '_ai_busy', False):
+            return
         if not hasattr(master, 'dane') or master.index >= len(master.dane):
             return
         pytanie_data = master.dane[master.index]
@@ -291,28 +370,59 @@ class QuizUIQuiz:
         opcje = pytanie_data.get("opcje", {})
         typ = pytanie_data.get("typ", "zamkniete")
 
-        prompt = zbuduj_prompt_quiz(pytanie, opcje, poprawna, twoja, typ)
-        self._ai_uruchom(master, prompt, master.ai_explain_btn, master.ai_ask_btn)
+        if not twoja or not getattr(master, 'question_answered', False):
+            from ai_helper import zbuduj_prompt_wytlumacz
+            prompt = zbuduj_prompt_wytlumacz(pytanie, opcje, poprawna, typ)
+            self._ai_uruchom(master, prompt, master.ai_explain_btn, master.ai_ask_btn, mode="explain")
+        else:
+            from ai_helper import zbuduj_prompt_quiz
+            prompt = zbuduj_prompt_quiz(pytanie, opcje, poprawna, twoja, typ)
+            self._ai_uruchom(master, prompt, master.ai_explain_btn, master.ai_ask_btn, mode="explain")
 
     def ai_wyslij_wlasny_prompt(self, master):
+        if getattr(master, '_ai_busy', False):
+            return
         user_text = master.ai_prompt_entry.get().strip()
         if not user_text:
             return
 
         if hasattr(master, 'dane') and master.index < len(master.dane):
             pytanie_data = master.dane[master.index]
+            pytanie = pytanie_data.get("pytanie", "")
+            poprawna = pytanie_data.get("poprawna", "")
+            twoja = getattr(master, "_ostatnia_odpowiedz", "")
+            opcje = pytanie_data.get("opcje", {})
+            typ = pytanie_data.get("typ", "zamkniete")
+
+            if typ == "otwarte":
+                kontekst_pytania = (
+                    f"Pytanie: {pytanie}\n"
+                    f"Poprawna odpowiedź: {poprawna}\n"
+                    + (f"Odpowiedź użytkownika: {twoja}\n" if twoja else "")
+                )
+            else:
+                opcje_str = ", ".join([f"{k}) {v}" for k, v in opcje.items()])
+                kontekst_pytania = (
+                    f"Pytanie: {pytanie}\n"
+                    f"Opcje: {opcje_str}\n"
+                    f"Poprawna odpowiedź: {poprawna}) {opcje.get(poprawna, '')}\n"
+                    + (f"Odpowiedź użytkownika: {twoja}) {opcje.get(twoja, twoja)}\n" if twoja else "")
+                )
+
             kontekst = (
-                f"Kontekst pytania egzaminacyjnego: {pytanie_data.get('pytanie', '')}\n"
-                f"Poprawna odpowiedź: {pytanie_data.get('poprawna', '')}\n\n"
-                f"Pytanie użytkownika: {user_text}\n\n"
-                f"Odpowiedz po polsku."
+                f"Kontekst zagadnienia egzaminacyjnego:\n"
+                f"{kontekst_pytania}\n"
+                f"Pytanie ucznia: {user_text}"
             )
         else:
-            kontekst = user_text + "\n\nOdpowiedz po polsku."
+            kontekst = user_text
 
-        self._ai_uruchom(master, kontekst, master.ai_explain_btn, master.ai_ask_btn)
+        self._ai_uruchom(master, kontekst, master.ai_explain_btn, master.ai_ask_btn, mode="chat")
 
-    def _ai_uruchom(self, master, prompt, *przyciski_do_disable):
+    def _ai_uruchom(self, master, prompt, *przyciski_do_disable, mode="explain"):
+        master._ai_busy = True
+        question_index_at_start = master.index
+
         self.ai_ustaw_tekst(master, "⏳ Generowanie odpowiedzi...")
         for btn in przyciski_do_disable:
             btn.configure(state="disabled")
@@ -322,6 +432,8 @@ class QuizUIQuiz:
         def on_chunk(token):
             accumulated[0] += token
             def update():
+                if master.index != question_index_at_start:
+                    return
                 master.ai_response_box.configure(state="normal")
                 master.ai_response_box.delete("1.0", "end")
                 master.ai_response_box.insert("end", accumulated[0])
@@ -331,42 +443,74 @@ class QuizUIQuiz:
 
         def on_done():
             def enable():
+                master._ai_busy = False
                 for btn in przyciski_do_disable:
-                    btn.configure(state="normal")
+                    try:
+                        btn.configure(state="normal")
+                    except Exception:
+                        pass
             master.after(0, enable)
 
         def on_error(msg):
             def show_err():
-                self.ai_ustaw_tekst(master, f"❌ {msg}")
+                master._ai_busy = False
+                if master.index == question_index_at_start:
+                    self.ai_ustaw_tekst(master, f"❌ {msg}")
                 for btn in przyciski_do_disable:
-                    btn.configure(state="normal")
+                    try:
+                        btn.configure(state="normal")
+                    except Exception:
+                        pass
             master.after(0, show_err)
-
-        zapytaj_ollame(prompt, on_chunk, on_done, on_error)
+        zapytaj_ollame(prompt, on_chunk, on_done, on_error, mode=mode)
 
     def show_koniec_testu(self, master, final_procent):
         master.pytania_label.configure(text="Koniec testu!")
         master.procent_label_num.configure(text=f"{final_procent}%")
         master.pytanie.configure(text="Wybierz opcję na dole ekranu")
-        master.buttons_frame.pack_forget()
-        master.open_question_frame.pack_forget()
+        master.center_frame.pack_forget()
         master.progressbar.set(1)
 
         if not hasattr(master, 'show_bledy_btn'):
-            master.show_bledy_btn = ctk.CTkButton(master, text="Przejrzyj błędy", font=("Arial", 28, "bold"),
-                                                  command=lambda: self.show_bledy(master),
-                                                  fg_color=BG_FRAME,
-                                                  hover_color=ACCENT_ERROR,
-                                                  text_color=ACCENT_ERROR,
-                                                  border_width=1,
-                                                  border_color=ACCENT_ERROR,
-                                                  width=300, height=60)
+            master.show_bledy_btn = ctk.CTkButton(
+                master,
+                text="Przejrzyj błędy",
+                font=("Arial", 28, "bold"),
+                command=lambda: self.show_bledy(master),
+                fg_color=BG_FRAME,
+                hover_color=ACCENT_ERROR,
+                text_color=ACCENT_ERROR,
+                border_width=1,
+                border_color=ACCENT_ERROR,
+                width=300, height=60
+            )
+        else:
+            master.show_bledy_btn.pack_forget()
+
+
+        if not hasattr(master, 'restart_test_bledy'):
+            master.restart_test_bledy = ctk.CTkButton(
+                master,
+                text="Test z samymi błędami",
+                font=("Arial", 28, "bold"),
+                command=lambda: master.show_pytania_incorrect(),
+                fg_color=BG_FRAME,
+                hover_color=ACCENT_ERROR,
+                text_color=ACCENT_ERROR,
+                border_width=1,
+                border_color=ACCENT_ERROR,
+                width=300, height=60
+            )
+        else:
+            master.restart_test_bledy.pack_forget()
 
         if len(master.bledy) > 0:
-            master.show_bledy_btn.pack(pady=20)
+            master.show_bledy_btn.pack(side="bottom", pady=10)
+            master.restart_test_bledy.pack(side="bottom", pady=10)
 
     def show_bledy(self, master):
         self.nothing(master)
+        master.center_frame.pack_forget()
         master.footer_frame.pack(side="bottom", fill="x", pady=20)
         master.button_restart_frame.pack(pady=20, side="bottom")
         master.button_go_back_to_menu_frame.pack(side="bottom", pady=30)
@@ -423,7 +567,7 @@ class QuizUIQuiz:
 
         ai_box = ctk.CTkTextbox(ai_dolny_frame,
                                 height=90,
-                                font=("Arial", 13),
+                                font=("Arial", 18),
                                 fg_color=BG_FRAME,
                                 text_color=TEXT,
                                 border_width=1,
@@ -467,7 +611,7 @@ class QuizUIQuiz:
 
         ai_btn = ctk.CTkButton(ai_dolny_frame,
                                text="✦ Wyjaśnij AI",
-                               font=("Arial", 13, "bold"),
+                               font=("Arial", 18, "bold"),
                                fg_color="transparent",
                                hover_color=BG_FRAME,
                                text_color=ACCENT_AI,

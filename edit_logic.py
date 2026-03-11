@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from tkinter import messagebox
 from database import save_data
-
+import os
 
 class EditLogic:
     def edit_menu(self):
@@ -10,7 +10,6 @@ class EditLogic:
         self.ui_manager.show_edit_menu(self)
 
     def prepare_edit(self, sciezka):
-        import os
         if sciezka and os.path.exists(sciezka):
             if self.baza_sciezka:
                 self.historia_bledow[self.baza_sciezka] = self.bledy

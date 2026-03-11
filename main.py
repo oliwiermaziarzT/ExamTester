@@ -15,7 +15,6 @@ class App(ctk.CTk, QuizLogic, EditLogic, MenuLogic):
         super().__init__()
         self.baza_sciezka = baza
 
-        # okno
         self.configure(fg_color="#1a1a2e")
         self.geometry("1908x1050")
         self.title("Przygotowanie do egzaminu")
@@ -29,13 +28,12 @@ class App(ctk.CTk, QuizLogic, EditLogic, MenuLogic):
         self.current_edit_index = None
         self.historia_bledow = {}
 
-        # ui
         self.ui_manager = QuizUI()
         self.ui_manager.setup_ui(self, self.check_answer_closed, self.check_answer_open)
         self.ui_manager.back_to_menu(self, self.main_menu)
         self.ui_manager.scrollable_tests_frame(self)
+        self.ui_manager.setup_api_key_widget(self) 
 
-        # quiz
         self.load_saved_tests()
         self.main_menu()
         self.update_stats()

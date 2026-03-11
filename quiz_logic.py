@@ -12,16 +12,40 @@ class QuizLogic:
         self.add_test_button_frame.pack_forget()
         self.new_tests_frame.pack_forget()
         self.signature_label.pack_forget()
+        if hasattr(self, "add_test_through_ai_frame"):
+            self.add_test_through_ai_frame.pack_forget()
+        if hasattr(self, "api_key_frame"):
+            self.api_key_frame.pack_forget()
+        for w in ["action_buttons_frame", "action_buttons_frame2", "stats_frame",
+                  "total_questions_label", "last_results_btn", "go_back_to_edit_menu_btn",
+                  "change_question_frame", "add_question_menu_frame", "add_question_open_frame",
+                  "edit_question_menu_frame", "edit_question_open_frame", "last_results_frame"]:
+            widget = getattr(self, w, None)
+            if widget:
+                try:
+                    widget.pack_forget()
+                except Exception:
+                    pass
+        if hasattr(self, "fig_stats"):
+            import matplotlib.pyplot as plt
+            plt.close(self.fig_stats)
 
         if hasattr(self, "show_bledy_btn"):
             self.show_bledy_btn.pack_forget()
         if hasattr(self, "bledy_frame"):
             self.bledy_frame.pack_forget()
+        if hasattr(self, "restart_test_bledy"):
+            self.restart_test_bledy.pack_forget()
 
-        self.ui_manager.hide_ai_panel(self)
+        self.ai_frame.pack_forget()
+        self.buttons_frame.pack_forget()
+        self.open_question_frame.pack_forget()
+        self.center_frame.pack_forget()
+
         self.progressbar.pack(side="top", padx=20, pady=20)
         self.pytania_label.pack(side="top", pady=10)
         self.pytanie.pack(side="top", pady=20)
+        self.center_frame.pack(side="top", fill="x", padx=60)
         self.footer_frame.pack(side="bottom", fill="x")
         self.button_restart_frame.pack(side="bottom", pady=10)
         self.button_go_back_to_menu_frame.pack(side="bottom", pady=10)
@@ -47,15 +71,74 @@ class QuizLogic:
                 for litera in ["A", "B", "C", "D"]:
                     o_tekst = pytanie['opcje'].get(litera, "")
                     self.buttons[litera].configure(text=f"{litera}: {o_tekst}")
+                self.bind("<a>", lambda event: self.check_answer_closed("A"))
+                self.bind("<b>", lambda event: self.check_answer_closed("B"))
+                self.bind("<c>", lambda event: self.check_answer_closed("C"))
+                self.bind("<d>", lambda event: self.check_answer_closed("D"))
+
+            self.ui_manager.show_ai_panel_always(self, is_open_question)
 
         else:
             final_procent = int((self.poprawne / len(self.dane)) * 100) if len(self.dane) > 0 else 0
             self.ui_manager.show_koniec_testu(self, final_procent)
 
+    def show_pytania_incorrect(self):
+        if not self.bledy:
+            return
+
+        seen = set()
+        bledy_dane = []
+        for blad in self.bledy:
+            pytanie_text = blad['pytanie']
+            if pytanie_text not in seen:
+                seen.add(pytanie_text)
+                if 'dane_pytania' in blad:
+                    bledy_dane.append(dict(blad['dane_pytania']))
+
+        if not bledy_dane:
+            return
+
+        self.dane = bledy_dane
+        self.index = 0
+        self.poprawne = 0
+        self.niepoprawne = 0
+        self.bledy = []
+        self.bledy_mode = True  
+
+        random.shuffle(self.dane)
+        self.show_pytania()
+
+    def start_unlearned_test(self):
+        from tkinter import messagebox
+        from database import load_data
+
+        full_data = load_data(self.baza_sciezka)
+        nienauczone = [q for q in full_data if q.get('licznik', 0) <= 3]
+
+        if not nienauczone:
+            messagebox.showinfo("Gratulacje!", "Wszystkie pytania w tym teście zostały już nauczone!")
+            return
+
+        self.dane = nienauczone
+        self.index = 0
+        self.poprawne = 0
+        self.niepoprawne = 0
+        self.bledy = []
+        self.bledy_mode = True 
+        if self.baza_sciezka:
+            self.historia_bledow[self.baza_sciezka] = []
+
+        random.shuffle(self.dane)
+        self.show_pytania()
+
     def check_answer_closed(self, wybrana):
+
+        if self.question_answered:
+            return
+
         poprawna = self.dane[self.index]['poprawna']
         self._ostatnia_odpowiedz = wybrana
-    
+
         if wybrana == poprawna:
             self.buttons[wybrana].configure(fg_color="green", text_color="black")
             self.poprawne += 1
@@ -69,10 +152,17 @@ class QuizLogic:
             self.bledy.append({
                 "pytanie": self.dane[self.index]['pytanie'],
                 "twoja": wybrana,
-                "poprawna": poprawna
+                "poprawna": poprawna,
+                "dane_pytania": self.dane[self.index] 
             })
 
-        save_data(self.baza_sciezka, self.dane)
+        self.unbind("<a>")
+        self.unbind("<b>")
+        self.unbind("<c>")
+        self.unbind("<d>")
+
+        if not getattr(self, 'bledy_mode', False):
+            save_data(self.baza_sciezka, self.dane)
         self.update_stats()
 
         for btn in self.buttons.values():
@@ -111,7 +201,8 @@ class QuizLogic:
             self.bledy.append({
                 "pytanie": self.dane[self.index]['pytanie'],
                 "twoja": user_answer,
-                "poprawna": correct_answer
+                "poprawna": correct_answer,
+                "dane_pytania": self.dane[self.index] 
             })
 
         self.submit_open_btn.configure(state="disabled")
@@ -120,9 +211,9 @@ class QuizLogic:
 
     def finalize_question_step(self):
         self.question_answered = True
-        if self.baza_sciezka:
+        if self.baza_sciezka and not getattr(self, 'bledy_mode', False):
             self.historia_bledow[self.baza_sciezka] = self.bledy
-        save_data(self.baza_sciezka, self.dane)
+            save_data(self.baza_sciezka, self.dane)
         self.update_stats()
         self.pytania_label.configure(text="Naciśnij ENTER, aby kontynuować", text_color="yellow")
 
@@ -159,6 +250,7 @@ class QuizLogic:
         self.poprawne = 0
         self.niepoprawne = 0
         self.bledy = []
+        self.bledy_mode = False 
         if self.baza_sciezka:
             self.historia_bledow[self.baza_sciezka] = []
 

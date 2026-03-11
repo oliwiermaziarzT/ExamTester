@@ -9,10 +9,9 @@ Desktopowa aplikacja do nauki i przygotowania do egzaminów. Umożliwia tworzeni
 ## Funkcje
 
 - **Zarządzanie testami** — tworzenie testów, przypisywanie plików `.json` z pytaniami, usuwanie
-- **Dwa typy pytań** — zamknięte (A/B/C/D) z losową kolejnością odpowiedzi oraz otwarte (wpisywanie tekstu)
+- **Dwa typy pytań** — zamknięte (A/B/C/D) oraz otwarte (wpisywanie tekstu)
 - **Edytor pytań** — dodawanie, edytowanie i usuwanie pytań bezpośrednio z poziomu aplikacji
 - **Statystyki w czasie rzeczywistym** — poprawne/niepoprawne odpowiedzi, procent, wykresy kołowe postępu nauki
-- **System powtórek** — pytania słabiej opanowane (niski licznik) pojawiają się częściej
 - **Przegląd błędów** — lista pytań z błędnymi odpowiedziami z ostatniej sesji wraz z poprawnymi odpowiedziami
 - **Integracja z AI (Ollama)** — wyjaśnienia odpowiedzi i możliwość zadania własnego pytania po każdej odpowiedzi
 - **Ciemny motyw** — przyjazny dla oczu interfejs
@@ -122,22 +121,18 @@ Stworzone przez **Oliwier Maziarz** jako narzędzie do samodzielnej nauki.
 
 ## Dlaczego ten projekt?
 
-Projekt został stworzony, ponieważ na studiach było bardzo wiele przedmiotów z gotową bazą pytań, ale brakowało narzędzia do efektywnej nauki - popularna aplikacja Anki mi nie odpowiadała. Chciałem mieć możliwość tworzenia własnych testów, śledzenia postępów i korzystania z pomocy AI, a dostępne rozwiązania były zbyt ograniczone lub skomplikowane. Chciałem stworzyć coś co jest bardzo proste w obsłudze oraz przyjemne dla oka. Ten projekt to moja odpowiedź na te potrzeby. Obecnie służy mi głównie do nauki języka hiszpańskiego.
+Projekt został stworzony, ponieważ na studiach było bardzo wiele przedmiotów z gotową bazą pytań, ale brakowało narzędzia do efektywnej nauki - popularna aplikacja Anki, ani jej odpowiedniki mi nie odpowiadały. Chciałem mieć możliwość tworzenia własnych testów, śledzenia postępów i korzystania z pomocy AI, a dostępne rozwiązania były zbyt ograniczone lub skomplikowane. Chciałem stworzyć coś co jest bardzo proste w obsłudze oraz przyjemne dla oka. Ten projekt to moja odpowiedź na te potrzeby. Obecnie służy mi głównie do nauki języka hiszpańskiego.
 
 ## Dalsze plany rozwoju
 Kolejność losowa:
 
-- **Tryb tylko nienauczone** — możliwość rozwiązywania tylko pytań z niskim licznikiem
-- **Tryb powtórka błędów** — rozwiązywanie tylko pytań z ostatniej sesji, które zostały źle odpowiedziane
-- **Eksport wyników** — możliwość eksportowania statystyk do pliku CSV/PDF
-- **Więcej typów pytań** —  pytania z wieloma poprawnymi odpowiedziami, pytania z obrazkami
-- **Wykres postępów w czasie** — linie pokazujące jak procent poprawnych odpowiedzi zmienia się w kolejnych sesjach
 - **Generowanie testów po przez AI** — możliwość wygenerowania testu na podstawie podanego tematu/zakresu materiału/pliku z pytaniami
-- **Zapisywanie postępów w chmurze** — synchronizacja wyników i testów między urządzeniami (np. Google Drive, Dropbox)
-- **API AI** - usunięcie lokalnego AI
-- **Speech recognition** - ćwiczenie poprawnej wymowy ( to specyficzna funkcjonalność dla mnie do jęyzka hiszpańskiego )
--- **Aplikacja mobilna** — uproszczona wersja aplikacji na Androida/iOS do nauki w ruchu (w bardzo bardzo odległej przyszłości "😉")
+- **Speech recognition** - ćwiczenie poprawnej wymowy i rozumienia ze słuchu (w przypadku nauki języków)
+- **API AI** - usunięcie lokalnego AI i zastąpienie go integracją z zewnętrznym API (np. OpenAI) dla lepszej jakości odpowiedzi
+- **Zapisywanie postępów w chmurze** — synchronizacja wyników i testów między urządzeniami np. Google Drive
+- **Aplikacja mobilna** — uproszczona wersja aplikacji na Androida/iOS do nauki w ruchu (w bardzo bardzo odległej przyszłości "😉")
 
+ 
 ## Licencja
 
 Projekt udostępniony na licencji [MIT](LICENSE). Możesz go używać, modyfikować i rozpowszechniać dowolnie.

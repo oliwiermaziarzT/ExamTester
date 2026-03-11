@@ -1,6 +1,7 @@
 import customtkinter as ctk
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from ai_helper import zapytaj_ollame, zbuduj_prompt_blad
 
 BG_MAIN = "#1a1a2e"
 BG_FRAME = "#16213e"
@@ -43,7 +44,14 @@ class QuizUIEdit:
             "go_back_to_list_btn",
             "last_results_btn",
             "last_results_frame",
-            "ai_frame"
+            "ai_frame",
+            "center_frame",
+            "restart_test_bledy",
+            "action_buttons_frame2",
+            "add_test_through_ai_frame",
+            "ai_generator_frame",
+            "ai_preview_frame",
+            "api_key_frame"
         ]
 
         for widget_name in widgets_to_hide:
@@ -114,6 +122,39 @@ class QuizUIEdit:
         )
         master.btn_add_open.pack(side="left", fill="x", expand=True, padx=15)
         master.button_go_back_to_menu_frame.pack(side="bottom", pady=20)
+
+        master.action_buttons_frame2 = ctk.CTkFrame(master, fg_color="transparent")
+        master.action_buttons_frame2.pack(pady=(0, 10), side="top", fill="x", padx=50)
+
+        master.btn_unlearned = ctk.CTkButton(
+            master.action_buttons_frame2,
+            text="▶  Testuj nienauczone pytania",
+            fg_color=BG_CARD,
+            hover_color=ACCENT_SUCCESS,
+            text_color=ACCENT_SUCCESS,
+            border_width=1,
+            border_color=ACCENT_SUCCESS,
+            font=("Arial", 18, "bold"),
+            height=btn_height,
+            width=btn_width,
+            command=lambda: (self.nothing(master), master.start_unlearned_test()),
+        )
+        master.btn_unlearned.pack(side="left", fill="x", expand=True, padx=15)
+
+        master.btn_start_full = ctk.CTkButton(
+            master.action_buttons_frame2,
+            text="▶  Rozpocznij pełny test",
+            fg_color=BG_CARD,
+            hover_color=ACCENT,
+            text_color=ACCENT,
+            border_width=1,
+            border_color=ACCENT,
+            font=("Arial", 18, "bold"),
+            height=btn_height,
+            width=btn_width,
+            command=lambda: (self.nothing(master), master.restart_test()),
+        )
+        master.btn_start_full.pack(side="left", fill="x", expand=True, padx=15)
 
         master.stats_frame = ctk.CTkFrame(master, fg_color="transparent")
         master.stats_frame.pack(pady=10, fill="x", padx=50)
@@ -595,4 +636,64 @@ class QuizUIEdit:
                                    font=("Arial", 16), justify="left", wraplength=1000, text_color=TEXT)
                 lbl.pack(anchor="w", padx=40, pady=2)
 
-    
+    def _renderuj_ai_przy_bledzie(self, master, rodzic_frame, blad):
+        ai_dolny_frame = ctk.CTkFrame(rodzic_frame, fg_color="transparent")
+        ai_dolny_frame.pack(fill="x", padx=14, pady=(0, 10))
+
+        ai_box = ctk.CTkTextbox(ai_dolny_frame,
+                                height=90,
+                                font=("Arial", 16),
+                                fg_color=BG_FRAME,
+                                text_color=TEXT,
+                                border_width=1,
+                                border_color=ACCENT_AI,
+                                wrap="word",
+                                state="disabled")
+        ai_btn_ref = [None]
+
+        def wyjasnij(b=blad, box=ai_box, btn_lista=ai_btn_ref):
+            prompt = zbuduj_prompt_blad(b['pytanie'], b['twoja'], b['poprawna'])
+            box.pack(fill="x", pady=(6, 0))
+            btn_lista[0].configure(state="disabled", text="⏳ Generuję...")
+
+            accumulated = [""]
+
+            def on_chunk(token):
+                accumulated[0] += token
+                def update():
+                    box.configure(state="normal")
+                    box.delete("1.0", "end")
+                    box.insert("end", accumulated[0])
+                    box.see("end")
+                    box.configure(state="disabled")
+                master.after(0, update)
+
+            def on_done():
+                def enable():
+                    btn_lista[0].configure(state="normal", text="✦ Wyjaśnij AI")
+                master.after(0, enable)
+
+            def on_error(msg):
+                def show_err():
+                    box.configure(state="normal")
+                    box.delete("1.0", "end")
+                    box.insert("end", f"❌ {msg}")
+                    box.configure(state="disabled")
+                    btn_lista[0].configure(state="normal", text="✦ Wyjaśnij AI")
+                master.after(0, show_err)
+
+            zapytaj_ollame(prompt, on_chunk, on_done, on_error)
+
+        ai_btn = ctk.CTkButton(ai_dolny_frame,
+                               text="✦ Wyjaśnij AI",
+                               font=("Arial", 16, "bold"),
+                               fg_color="transparent",
+                               hover_color=BG_FRAME,
+                               text_color=ACCENT_AI,
+                               border_width=1,
+                               border_color=ACCENT_AI,
+                               height=30,
+                               width=130,
+                               command=wyjasnij)
+        ai_btn.pack(side="left")
+        ai_btn_ref[0] = ai_btn
