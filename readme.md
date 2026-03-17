@@ -14,9 +14,8 @@ Desktopowa aplikacja do nauki i przygotowania do egzaminów. Umożliwia tworzeni
 - **Statystyki w czasie rzeczywistym** — poprawne/niepoprawne odpowiedzi, procent, wykresy kołowe postępu nauki
 - **Przegląd błędów** — lista pytań z błędnymi odpowiedziami z ostatniej sesji wraz z poprawnymi odpowiedziami
 - **Pomoc AI (Groq)** — wyjaśnienia odpowiedzi i możliwość zadania własnego pytania po każdej odpowiedzi
-- **Generator testów przez AI ✦** — automatyczne tworzenie pytań zamkniętych A/B/C/D z czterech źródeł: tematu, tekstu, pliku PDF/TXT lub zdjęcia
+- **Generator testów przez AI** — automatyczne tworzenie pytań zamkniętych A/B/C/D z czterech źródeł: tematu, tekstu, pliku PDF/TXT lub zdjęcia
 - **Podgląd i edycja przed zapisem** — wygenerowane pytania można edytować i usuwać przed zapisaniem testu
-- **Ciemny motyw** — przyjazny dla oczu interfejs
 
 ---
 
@@ -55,7 +54,7 @@ python main.py
 ### Konfiguracja AI (opcjonalne, ale zalecane)
 
 1. Zarejestruj się na [console.groq.com](https://console.groq.com) i wygeneruj bezpłatny klucz API.
-2. Uruchom aplikację i wpisz klucz w polu **✦ Groq API Key** w menu głównym.
+2. Uruchom aplikację i wpisz klucz w polu **Groq API Key** w menu głównym.
 3. Kliknij **Zapisz** — klucz zostanie zapamiętany lokalnie w pliku `groq_api_key.txt`.
 
 ---
@@ -74,7 +73,7 @@ python main.py
 
 ---
 
-## Generator testów przez AI ✦ 
+## Generator testów przez AI 
 Wszystko związane z tą funkcją zostało stworzone w 100% przez sztuczną inteligencję - ta funkcja powstała, ponieważ ułatwia mi ona naukę, a na mój obecny poziom to zadanie wydawało się zbyt cieżkie żeby samemu ją napisać.
 ______________________________________________________________________________________________________________________
 
@@ -84,17 +83,17 @@ Kliknij **„Dodaj test przez AI ✦"** w menu głównym, aby automatycznie wyge
 
 | Źródło | Opis |
 |--------|------|
-| 📝 **Temat** | Wpisz temat lub zakres materiału (np. „Fotosynteza", „II Wojna Światowa"). Możesz dodać opcjonalne wskazówki dla AI. |
-| 📋 **Tekst** | Wklej gotowe notatki, definicje lub dowolny tekst — AI wygeneruje pytania na jego podstawie. |
-| 📄 **Plik** | Wgraj plik PDF lub TXT. Aplikacja automatycznie odczyta tekst i przekaże go do modelu. |
-| 🖼️ **Zdjęcie** | Dodaj zdjęcia (JPG, PNG) — funkcja eksperymentalna, aktualnie wymaga ręcznego przepisania tekstu ze zdjęcia. |
+|  **Temat** | Wpisz temat lub zakres materiału. Możesz dodać opcjonalne wskazówki dla AI. |
+|  **Tekst** | Wklej gotowe notatki, definicje lub dowolny tekst — AI wygeneruje pytania na jego podstawie. |
+|  **Plik** | Wgraj plik PDF lub TXT. Aplikacja automatycznie odczyta tekst i przekaże go do modelu. |
+|  **Zdjęcie** | Dodaj zdjęcia (JPG, PNG) — funkcja eksperymentalna, aktualnie wymaga ręcznego przepisania tekstu ze zdjęcia. |
 
 ### Przebieg generowania
 
 1. Wybierz źródło i ustaw liczbę pytań (3–20) za pomocą suwaka.
-2. Kliknij **„✦ Generuj pytania"** — postęp generowania jest widoczny na bieżąco.
+2. Kliknij **„Generuj pytania"** — postęp generowania jest widoczny na bieżąco.
 3. Przejrzyj wygenerowane pytania w **podglądzie** — każde pytanie i każdą odpowiedź możesz edytować lub usunąć.
-4. Kliknij **„💾 Zapisz jako nowy test"** i podaj nazwę — test pojawi się od razu w menu głównym.
+4. Kliknij **„Zapisz jako nowy test"** i podaj nazwę — test pojawi się od razu w menu głównym.
 
 ---
 
