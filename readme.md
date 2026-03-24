@@ -37,8 +37,7 @@ cd ExamTester
 2. Utwórz i aktywuj wirtualne środowisko:
 ```bash
 python -m venv venv
-source venv/bin/activate   # Linux/Mac
-venv\Scripts\activate      # Windows
+source venv/bin/activate         
 ```
 
 3. Zainstaluj zależności:
@@ -51,11 +50,11 @@ pip install customtkinter matplotlib groq pypdf pillow
 python main.py
 ```
 
-### Konfiguracja AI (opcjonalne, ale zalecane)
+### Konfiguracja AI
 
 1. Zarejestruj się na [console.groq.com](https://console.groq.com) i wygeneruj bezpłatny klucz API.
 2. Uruchom aplikację i wpisz klucz w polu **Groq API Key** w menu głównym.
-3. Kliknij **Zapisz** — klucz zostanie zapamiętany lokalnie w pliku `groq_api_key.txt`.
+3. Klucz zostanie zapamiętany lokalnie w pliku `groq_api_key.txt`.
 
 ---
 
@@ -77,7 +76,7 @@ python main.py
 Wszystko związane z tą funkcją zostało stworzone w 100% przez sztuczną inteligencję - ta funkcja powstała, ponieważ ułatwia mi ona naukę, a na mój obecny poziom to zadanie wydawało się zbyt cieżkie żeby samemu ją napisać.
 ______________________________________________________________________________________________________________________
 
-Kliknij **„Dodaj test przez AI ✦"** w menu głównym, aby automatycznie wygenerować test zamknięty (A/B/C/D).
+Kliknij **„Dodaj test przez AI"** w menu głównym, aby automatycznie wygenerować test zamknięty (A/B/C/D).
 
 ### Źródła materiału
 
@@ -157,9 +156,8 @@ Kolejność losowa:
 
 - **Speech recognition** — ćwiczenie poprawnej wymowy i rozumienia ze słuchu (w przypadku nauki języków)
 - **Generator pytań otwartych** — rozszerzenie generatora AI o typ pytania otwartego
-- **Obsługa zdjęć w generatorze AI** — pełna integracja analizy obrazów po stronie API (np. przez model Vision)
+- **Obsługa zdjęć w generatorze AI** — pełna integracja analizy obrazów po stronie API
 - **Zapisywanie postępów w chmurze** — synchronizacja wyników i testów między urządzeniami
-- **Aplikacja mobilna** — uproszczona wersja aplikacji na Androida/iOS do nauki w ruchu (w bardzo odległej przyszłości 😉)
 
 ---
 
