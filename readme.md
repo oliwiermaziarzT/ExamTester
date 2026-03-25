@@ -4,22 +4,7 @@
 
 Desktopowa aplikacja do nauki i przygotowania do egzaminów. Umożliwia tworzenie własnych testów, rozwiązywanie pytań zamkniętych i otwartych, śledzenie postępów nauki oraz korzystanie z AI (Groq API) do wyjaśniania odpowiedzi i automatycznego generowania testów. Napisana w Pythonie z interfejsem graficznym CustomTkinter.
 
----
-
-## Funkcje
-
-- **Zarządzanie testami** — tworzenie testów, przypisywanie plików `.json` z pytaniami, usuwanie, grupowanie w kategorie
-- **Dwa typy pytań** — zamknięte (A/B/C/D) oraz otwarte (wpisywanie tekstu)
-- **Edytor pytań** — dodawanie, edytowanie i usuwanie pytań bezpośrednio z poziomu aplikacji
-- **Statystyki w czasie rzeczywistym** — poprawne/niepoprawne odpowiedzi, procent, wykresy kołowe postępu nauki
-- **Przegląd błędów** — lista pytań z błędnymi odpowiedziami z ostatniej sesji wraz z poprawnymi odpowiedziami
-- **Pomoc AI (Groq)** — wyjaśnienia odpowiedzi i możliwość zadania własnego pytania po każdej odpowiedzi
-- **Generator testów przez AI** — automatyczne tworzenie pytań zamkniętych A/B/C/D z czterech źródeł: tematu, tekstu, pliku PDF/TXT lub zdjęcia
-- **Podgląd i edycja przed zapisem** — wygenerowane pytania można edytować i usuwać przed zapisaniem testu
-
----
-
-## Instalacja
+## Istalacja
 
 ### Wymagania
 
@@ -60,7 +45,7 @@ python main.py
 
 ![Demo](https://github.com/oliwiermaziarzT/ExamTester/blob/main/videos/vid1.gif)
 
-## Pierwsze kroki
+## Szybki tutorial
 
 1. **Dodaj test** — kliknij „Dodaj test" i podaj nazwę. Zostanie utworzony plik `.json` z przykładowymi pytaniami.
 2. **Automatyczne przypisanie pliku** — po utworzeniu testu automatycznie przypisywany jest do niego plik `.json` z taką samą nazwą jak test.
@@ -76,15 +61,6 @@ python main.py
 Wszystko związane z tą funkcją zostało stworzone w 100% przez sztuczną inteligencję - ta funkcja powstała, ponieważ ułatwia mi ona naukę, a na mój obecny poziom to zadanie wydawało się zbyt cieżkie żeby samemu ją napisać.
 ______________________________________________________________________________________________________________________
 
-Kliknij **„Dodaj test przez AI"** w menu głównym, aby automatycznie wygenerować test zamknięty (A/B/C/D).
-
-### Źródła materiału
-
-| Źródło | Opis |
-|--------|------|
-|  **Temat** | Wpisz temat lub zakres materiału. Możesz dodać opcjonalne wskazówki dla AI. |
-|  **Tekst** | Wklej gotowe notatki, definicje lub dowolny tekst — AI wygeneruje pytania na jego podstawie. |
-|  **Plik** | Wgraj plik PDF lub TXT. Aplikacja automatycznie odczyta tekst i przekaże go do modelu. |
 |  **Zdjęcie** | Dodaj zdjęcia (JPG, PNG) — funkcja eksperymentalna, aktualnie wymaga ręcznego przepisania tekstu ze zdjęcia. |
 
 ### Przebieg generowania
@@ -118,27 +94,6 @@ Funkcja wymaga zapisanego klucza Groq API. Model: `llama-3.1-8b-instant`.
 | [pypdf](https://pypdf.readthedocs.io) | Odczyt plików PDF w generatorze AI |
 | [Pillow](https://python-pillow.org) | Podgląd zdjęć w generatorze AI |
 | JSON | Format przechowywania pytań i konfiguracji |
-
----
-
-## Struktura projektu
-
-```
-├── main.py               # Punkt wejścia, główna klasa App
-├── gui.py                # Łącznik interfejsów
-├── gui_menu.py           # Widok menu głównego
-├── gui_quiz.py           # Widok rozwiązywania testu + panel AI
-├── gui_edit.py           # Widok edytora pytań
-├── gui_ai_generator.py   # Widok generatora testów przez AI
-├── quiz_logic.py         # Logika rozwiązywania testu
-├── edit_logic.py         # Logika edycji pytań
-├── menu_logic.py         # Logika zarządzania testami
-├── ai_helper.py          # Komunikacja z Groq API
-├── database.py           # Operacje na plikach JSON
-├── config.json           # Lista zapisanych testów
-├── groq_api_key.txt      # Klucz API Groq (tworzony automatycznie)
-└── baza.json             # Przykładowa baza pytań
-```
 
 ---
 
