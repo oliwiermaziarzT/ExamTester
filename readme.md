@@ -61,7 +61,6 @@ python main.py
 Wszystko związane z tą funkcją zostało stworzone w 100% przez sztuczną inteligencję - ta funkcja powstała, ponieważ ułatwia mi ona naukę, a na mój obecny poziom to zadanie wydawało się zbyt cieżkie żeby samemu ją napisać.
 ______________________________________________________________________________________________________________________
 
-|  **Zdjęcie** | Dodaj zdjęcia (JPG, PNG) — funkcja eksperymentalna, aktualnie wymaga ręcznego przepisania tekstu ze zdjęcia. |
 
 ### Przebieg generowania
 
