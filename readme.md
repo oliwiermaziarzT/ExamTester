@@ -96,7 +96,7 @@ Funkcja wymaga zapisanego klucza Groq API. Model: `llama-3.1-8b-instant`.
 
 ---
 
-## 👤 Autor
+## Autor
 
 Stworzone przez **Oliwier Maziarz** jako narzędzie do samodzielnej nauki.
 
